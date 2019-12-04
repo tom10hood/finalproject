@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <!--above lets me type in html-->
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!--this allows to use the d3. library-->
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>    
+  <!--below binds data to the dataset-->
+<body>
+    <!--
+
+    -->
+    
+    <div class = "container">
+        <div class = "row">
+            <h1>Lacrosse Is Cool</h1>
+        </div>
+        <table class="table-bordered">
+
+            <tr>
+                <!-- slopes are made up for now -->
+                <td class="col-xs-1" align="center"><strong>WIN PERCENTAGE</strong></td>
+                <td onclick="displayCorrelation(0.492,'Save Percentage','Win Percentage')"><div id="sav_win"></div></td>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.784,'Goals Per Game','Win Percentage')"><div id="gpg_win"></div></td>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.583,'Shot Percentage','Win Percentage')"><div id="sp_win"></div></td>
+                <td onclick="displayCorrelation(0.24,'Shots On Goal Percentage','Win Percentage')"><div id="sogp_win"></div></td>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.618,'Faceoff Percentage','Win Percentage')"><div id="fp_win"></div></td>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.774,'Clear Percentage','Win Percentage')"><div id="cp_win"></div></td>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.666,'Man Up Percentage','Win Percentage')"><div id="mu_win"></div></td>
+                <td style = "background:#e0e0e0" onclick="displayCorrelation(-0.735,'Goals Against','Win Percentage')"><div id="ga_win"></div></td>
+            </tr>
+
+            <tr>
+                <td onclick="displayCorrelation(0.492,'Save Percentage','Win Percentage')"><div id="sav_win"><div id="win_sav"></div></td>
+                <td class="col-xs-1" align="center"><strong>SAVE PERCENTAGE</strong></td>
+                <td><div id="gpg_sav"></div></td>
+                <td><div id="sp_sav"></div></td>
+                <td><div id="sogp_sav"></div></td>
+                <td><div id="fp_sav"></div></td>
+                <td><div id="cp_sav"></div></td>
+                <td><div id="mu_sav"></div></td>
+                <td style = "background:#e0e0e0" ><div id="ga_sav"></div></td>
+            </tr>
+
+            <tr>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.784,'Goals Per Game','Win Percentage')"><div id="gpg_win"><div id="win_gpg"></div></td>
+                <td><div id="sav_gpg"></div></td>
+                <td class="col-xs-1" align="center"><strong>GOALS PER GAME PERCENTAGE</strong></td>
+                <td style = "background:#ffeaed" ><div id="sp_gpg"></div></td>
+                <td><div id="sogp_gpg"></div></td>
+                <td style = "background:#ffeaed" ><div id="fp_gpg"></div></td>
+                <td style = "background:#ffeaed" ><div id="cp_gpg"></div></td>
+                <td style = "background:#ffeaed" ><div id="mu_gpg"></div></td>
+                <td><div id="ga_gpg"></div></td>
+            </tr>
+
+            <tr>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.583,'Shot Percentage','Win Percentage')"><div id="win_sp"></div></td>
+                <td><div id="sav_sp"></div></td>
+                <td style = "background:#ffeaed" ><div id="gpg_sp"></div></td>
+                <td class="col-xs-1" align="center"><strong>SHOT PERCENTAGE</strong></td>
+                <td><div id="sogp_sp"></div></td>
+                <td><div id="fp_sp"></div></td>
+                <td><div id="cp_sp"></div></td>
+                <td style = "background:#ffeaed" ><div id="mu_sp"></div></td>
+                <td><div id="ga_sp"></div></td>
+            </tr>
+
+            <tr>
+                <td  onclick="displayCorrelation(0.24,'Shots On Goal Percentage','Win Percentage')"><div id="win_sogp"></div></td>
+                <td><div id="sav_sogp"></div></td>
+                <td><div id="gpg_sogp"></div></td>
+                <td><div id="sp_sogp"></div></td>
+                <td class="col-xs-1" align="center"><strong>SHOTS ON GOAL PERCENTAGE</strong></td>
+                <td><div id="fp_sogp"></div></td>
+                <td><div id="cp_sogp"></div></td>
+                <td><div id="mu_sogp"></div></td>
+                <td><div id="ga_sogp"></div></td>
+            </tr>
+
+            <tr>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.618,'Faceoff Percentage','Win Percentage')"><div id="win_fp"></div></td>
+                <td><div id="sav_fp"></div></td>
+                <td style = "background:#ffeaed" ><div id="gpg_fp"></div></td>
+                <td><div id="sp_fp"></div></td>
+                <td><div id="sogp_fp"></div></td>
+                <td class="col-xs-1" align="center"><strong>FACEOFF PERCENTAGE</strong></td>
+                <td><div id="cp_fp"></div></td>
+                <td><div id="mu_fp"></div></td>
+                <td style = "background:#e0e0e0" ><div id="ga_fp"></div></td>
+            </tr>
+
+            <tr>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.774,'Clear Percentage','Win Percentage')"><div id="win_cp"></div></td>
+                <td><div id="sav_cp"></div></td>
+                <td style = "background:#ffeaed" ><div id="gpg_cp"></div></td>
+                <td><div id="sp_cp"></div></td>
+                <td><div id="sogp_cp"></div></td>
+                <td><div id="fp_cp"></div></td>
+                <td class="col-xs-1" align="center"><strong>CLEAR PERCENTAGE</strong></td>
+                <td style = "background:#ffeaed" ><div id="mu_cp"></div></td>
+                <td><div id="ga_cp"></div></td>
+            </tr>
+
+            <tr>
+                <td style = "background:#ffeaed" onclick="displayCorrelation(0.666,'Man Up Percentage','Win Percentage')"><div id="win_mu"></div></td>
+                <td><div id="sav_mu"></div></td>
+                <td style = "background:#ffeaed" ><div id="gpg_mu"></div></td>
+                <td style = "background:#ffeaed" ><div id="sp_mu"></div></td>
+                <td><div id="sogp_mu"></div></td>
+                <td><div id="fp_mu"></div></td>
+                <td style = "background:#ffeaed" ><div id="cp_mu"></div></td>
+                <td class="col-xs-1" align="center"><strong>MAN UP PERCENTAGE</strong></td>
+                <td><div id="ga_mu"></div></td>
+            </tr>
+
+            <tr>
+                <td style = "background:#e0e0e0" onclick="displayCorrelation(-0.735,'Goals Against','Win Percentage')"><div id="win_ga"></div></td>
+                <td style = "background:#e0e0e0" ><div id="sav_ga"></div></td>
+                <td><div id="gpg_ga"></div></td>
+                <td><div id="sp_ga"></div></td>
+                <td><div id="sogp_ga"></div></td>
+                <td style = "background:#e0e0e0" ><div id="fp_ga"></div></td>
+                <td><div id="cp_ga"></div></td>
+                <td><div id="mu_ga"></div></td>
+                <td class="col-xs-1" align="center"><strong>GOALS AGAINST PERCENTAGE</strong></td>
+            </tr>
+
+            <tr>
+                <td class="col-xs-1" align="center"><strong>WIN PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>SAVE PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>GOALS PER GAME PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>SHOT PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>SHOTS ON GOAL PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>FACEOFF PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>CLEAR PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>MAN UP PERCENTAGE</strong></td>
+                <td class="col-xs-1" align="center"><strong>GOALS AGAINST PERCENTAGE</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <!--above csetting up div to put the stuff in-->
+</body>    
+    
+<script>
+
+    function displayCorrelation(corr, x, y) {
+        alert("Correlation between " + x + " and " + y + " : " + corr);
+    }
+    
+
+    
+    
+    
+    //Setting the height,width, and margins of your graph
+    
+    //var margin is a dictionary(how you know is because it has a curly brace)
+    var width = 140;
+    var height =80;
+    
+    //setting the paddings and where the graph should be located on tha page
+    // append the svg object to the body of the page
+    
+//win
+    var win_sav_svg = d3.select("#win_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    
+    var win_gpg_svg = d3.select("#win_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60+ "," + 10 + ")"); 
+
+    var win_sp_svg = d3.select("#win_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");  
+    
+    var win_sogp_svg = d3.select("#win_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var win_fp_svg = d3.select("#win_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var win_cp_svg = d3.select("#win_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var win_mu_svg = d3.select("#win_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var win_ga_svg = d3.select("#win_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height +40)
+        .append("g")
+        .attr("transform", "translate(" + 60 + "," + 10 + ")");
+    //sav
+    var sav_win_svg = d3.select("#sav_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sav_gpg_svg = d3.select("#sav_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sav_sp_svg = d3.select("#sav_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sav_sogp_svg = d3.select("#sav_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sav_fp_svg = d3.select("#sav_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sav_cp_svg = d3.select("#sav_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sav_mu_svg = d3.select("#sav_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+     var sav_ga_svg = d3.select("#sav_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //gpg
+    var gpg_win_svg = d3.select("#gpg_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_sav_svg = d3.select("#gpg_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_sogp_svg = d3.select("#gpg_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_fp_svg = d3.select("#gpg_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_cp_svg = d3.select("#gpg_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_mu_svg = d3.select("#gpg_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_ga_svg = d3.select("#gpg_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var gpg_sp_svg = d3.select("#gpg_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //sp
+    var sp_win_svg = d3.select("#sp_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_sav_svg = d3.select("#sp_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_gpg_svg = d3.select("#sp_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_sogp_svg = d3.select("#sp_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_fp_svg = d3.select("#sp_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_cp_svg = d3.select("#sp_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_mu_svg = d3.select("#sp_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sp_ga_svg = d3.select("#sp_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //sogp
+     var sogp_win_svg = d3.select("#sogp_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sogp_sav_svg = d3.select("#sogp_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sogp_gpg_svg = d3.select("#sogp_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sogp_sp_svg = d3.select("#sogp_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sogp_fp_svg = d3.select("#sogp_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sogp_cp_svg = d3.select("#sogp_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var sogp_mu_svg = d3.select("#sogp_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+     var sogp_ga_svg = d3.select("#sogp_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //fp
+     var fp_win_svg = d3.select("#fp_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_sav_svg = d3.select("#fp_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_gpg_svg = d3.select("#fp_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_sp_svg = d3.select("#fp_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_sogp_svg = d3.select("#fp_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_cp_svg = d3.select("#fp_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_mu_svg = d3.select("#fp_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var fp_ga_svg = d3.select("#fp_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //cp
+    var cp_win_svg = d3.select("#cp_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_sav_svg = d3.select("#cp_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_gpg_svg = d3.select("#cp_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_sp_svg = d3.select("#cp_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_sogp_svg = d3.select("#cp_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_fp_svg = d3.select("#cp_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_mu_svg = d3.select("#cp_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var cp_ga_svg = d3.select("#cp_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //mu
+   var mu_win_svg = d3.select("#mu_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_sav_svg = d3.select("#mu_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_gpg_svg = d3.select("#mu_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_sp_svg = d3.select("#mu_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_sogp_svg = d3.select("#mu_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_fp_svg = d3.select("#mu_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_cp_svg = d3.select("#mu_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var mu_ga_svg = d3.select("#mu_ga")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    //ga
+    var ga_win_svg = d3.select("#ga_win")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_sav_svg = d3.select("#ga_sav")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_gpg_svg = d3.select("#ga_gpg")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_sp_svg = d3.select("#ga_sp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_sogp_svg = d3.select("#ga_sogp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_fp_svg = d3.select("#ga_fp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_cp_svg = d3.select("#ga_cp")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    var ga_mu_svg = d3.select("#ga_mu")
+        .append("svg")
+        .attr("width", width + 90)
+        .attr("height", height + 40)
+        .append("g")
+        .attr("transform","translate(" + 60 + "," + 10 + ")");
+    
+    //says how big the SVG is 
+    //setting how big the graph is 
+    dataset = []
+    //creating empty dataset to put things in 
+    d3.csv("data.csv", function(d) {
+    //putting data from csv in usable form
+        for (var i = 0; i < d.length; i++) {  //thank you for teaching me for loops!
+            
+            //parseFloat converts the String into a Decimal
+            row = {}
+            row["winperc"] = (parseFloat(d[i]["winperc"])) / 100;
+            row["sav"] = (parseFloat(d[i]["sav"]));
+            row["gpg"] = (parseFloat(d[i]["gpg"]));
+            row["sp"] = (parseFloat(d[i]["sp"]));
+            
+            row["sogp"] = (parseFloat(d[i]["sogp"]));
+            row["fp"] = (parseFloat(d[i]["fp"]));
+            row["cp"] = (parseFloat(d[i]["cp"]));
+            row["mu"] = (parseFloat(d[i]["mu"]));
+            row["ga"] = (parseFloat(d[i]["ga"]));
+            dataset.push(row);
+        }
+
+
+        // Add X axis
+        var x = d3.scaleLinear()
+            .domain([0, 1])
+            .range([ 0, width]);
+        //win
+        win_sav_svg.append("g")
+            .attr("transform","translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        win_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        //sav
+        sav_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sav_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        //gpg
+        gpg_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        gpg_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+         //sp
+        sp_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sp_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+         //sogp
+        sogp_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        sogp_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+         //fp
+        fp_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        fp_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+         //cp
+        cp_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        cp_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        //mu
+        mu_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        mu_ga_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        //ga
+        ga_win_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_sav_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_gpg_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_sp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_sogp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_fp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_cp_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        ga_mu_svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        // Add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, 1])
+            .range([ height, 0]);
+        win_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        win_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+        //sav
+        sav_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        sav_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+        //gpg
+        gpg_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        gpg_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+         //sp
+        sp_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        sp_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+         //sogp
+        sogp_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        sogp_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+        //fp
+        fp_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        fp_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+        //cp
+        cp_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        cp_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+        //mu
+        mu_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+        mu_ga_svg.append("g")
+            .call(d3.axisLeft(y));
+        //ga
+        ga_win_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_sav_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_gpg_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_sp_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_fp_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_sogp_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_mu_svg.append("g")
+            .call(d3.axisLeft(y));
+        ga_cp_svg.append("g")
+            .call(d3.axisLeft(y));
+       
+        // Add dots
+        //win
+        win_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        win_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["gpg"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+        win_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        win_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        win_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        win_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        win_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        win_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["winperc"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        //sav
+        sav_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        sav_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["gpg"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       sav_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        sav_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        sav_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       sav_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        sav_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        sav_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sav"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+    //gpg
+        gpg_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        gpg_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       gpg_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        gpg_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        gpg_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       gpg_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        gpg_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        gpg_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["gpg"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       //sp
+        sp_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        sp_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       sp_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["gpg"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        sp_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        sp_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       sp_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+    sp_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       sp_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        //sogp
+        sogp_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        sogp_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       sogp_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["gpg"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        sogp_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        sogp_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       sogp_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        sogp_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       sogp_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["sogp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+  //fp
+        fp_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        fp_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       fp_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["gpg"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        fp_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        fp_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       fp_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        fp_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       fp_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["fp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+//cp
+        cp_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        cp_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       cp_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["gpg"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        cp_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        cp_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       cp_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        cp_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       cp_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["cp"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+    //mu
+        mu_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        mu_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       mu_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["gpg"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        mu_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        mu_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       mu_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        mu_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       mu_ga_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["ga"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["mu"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+     //ga
+        ga_win_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["winperc"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")  
+        
+        ga_sav_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { 
+                    return x(d["sav"]); 
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        
+       ga_gpg_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["gpg"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2") 
+        ga_sp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        ga_sogp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["sogp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       ga_fp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["fp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+        ga_cp_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["cp"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+       ga_mu_svg.append('g')
+            .selectAll("dot")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                    return x(d["mu"]);
+                })
+            .attr("cy", function (d) {
+                    return y(d["ga"]); 
+                })
+            .attr("r", 1.0)
+            .style("fill", "#69b3a2")
+    });
+// get correlations for other variables on excel 
+// add all divs 
+// create svg for it 
+//add x and y axis 
+//MAKE SURE NAMING IS CORRECT FIRST PART OF NAME IS X AND OTHER PART IS Y 
+
+    
+//INTERACTION: CLICK A BUTTON GIVE YOU THE SLOPE 
+    
+    
+        
+   
+
+</script>
+    <!--python -m SimpleHTTPServer 3000 -->
+</html>
+

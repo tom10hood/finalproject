@@ -1,0 +1,14 @@
+body {
+    background-color: #f8f2eb;
+    
+}
+
+h1 {
+    font-family:monospace;
+    color: indianred;
+    -webkit-animation: fadein 2s; 
+       -moz-animation: fadein 2s; 
+        -ms-animation: fadein 2s; 
+         -o-animation: fadein 2s; 
+            animation: fadein 2s;
+}
