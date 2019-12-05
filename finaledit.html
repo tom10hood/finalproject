@@ -27,8 +27,12 @@
     -->
     
     <div class = "container">
-        <div class = "row">
+        <div>
             <h1>Lacrosse Is Cool</h1>
+        </div>
+        <div style = "width: 350px; background-color: white">
+            <svg id = "legend" height=75 width=500></svg>
+        
         </div>
         <table class="table-bordered">
 
@@ -164,9 +168,17 @@
         alert("Correlation between " + x + " and " + y + " : " + corr);
     }
     
+    //setting up legend
+    var svg_legend = d3.select("#legend");
+    
+    svg_legend.append("circle").attr("cx",40).attr("cy",20).attr("r", 6).style("fill", "#ffeaed")
+    svg_legend.append("circle").attr("cx",40).attr("cy",50).attr("r", 6).style("fill", "#e0e0e0");
+    
+    svg_legend.append("text").attr("x", 60).attr("y", 20).text("positive correlation above 0.5").style("font-size", "15px").attr("alignment-baseline","middle");
+    
+    svg_legend.append("text").attr("x", 60).attr("y", 50).text("negative correlation below -0.5").style("font-size", "15px").attr("alignment-baseline","middle");
+    
 
-    
-    
     
     //Setting the height,width, and margins of your graph
     
